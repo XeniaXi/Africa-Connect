@@ -1,6 +1,6 @@
 # ConnectAfrica — Execution Plan
 
-Last updated: 2026-06-04
+Last updated: 2026-06-04 (session 2)
 Current phase: **Phase 1 — Claim Portal, AI Visibility Score, Searchable Profiles**
 
 > Core message: **"Make Your Business Discoverable by AI."** Never lead with MCP or API.
@@ -15,7 +15,7 @@ Current phase: **Phase 1 — Claim Portal, AI Visibility Score, Searchable Profi
 - [x] Seed script (70 businesses — artisans, hospitals, clinics)
 - [ ] Run migrations + seed staging DB
 - [ ] CSV import endpoint with field mapper
-- [ ] Trust score computed on every upsert
+- [x] Trust score computed on every upsert (partner.service.ts — server-side only)
 
 ### Claim Portal (apps/web)
 - [ ] Homepage: "Is Your Business Visible to AI?" hero CTA
@@ -44,7 +44,7 @@ Current phase: **Phase 1 — Claim Portal, AI Visibility Score, Searchable Profi
 ---
 
 ## Phase 2 — Partner Integrations + Automated Profile Creation (Target: 2026-08-04)
-- [ ] Partner ingestion API — upsert, batch, webhooks
+- [x] Partner ingestion API — upsert, batch (500 max), sync logs (Phase 2 item completed early)
 - [ ] SortAm sync — every artisan auto-gets a ConnectAfrica profile
 - [ ] MediSeen sync — every hospital auto-gets a healthcare profile
 - [ ] Google Sheets sync
