@@ -97,10 +97,13 @@ model Business {
   phone               String?
   email               String?
   website             String?
+  slug                String?         @unique
   status              BusinessStatus  @default(ACTIVE)
   verificationLevel   Int             @default(0)
   trustScore          Int             @default(0)
   availabilityStatus  String          @default("unknown")
+  claimedByUserId     String?         // set when a user successfully claims this profile
+  claimedAt           DateTime?
   lastVerifiedAt      DateTime?
   lastSyncedAt        DateTime?
   createdAt           DateTime        @default(now())
