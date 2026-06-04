@@ -1,6 +1,7 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { BusinessService } from './business.service';
+import { Public } from '../common/auth/public.decorator';
 
 @ApiTags('businesses')
 @Controller('businesses')
@@ -8,12 +9,14 @@ export class BusinessController {
   constructor(private readonly businessService: BusinessService) {}
 
   @Get(':id')
+  @Public()   // public profile — no auth required
   @ApiOperation({ summary: 'Get business profile by ID' })
   findOne(@Param('id') id: string) {
     return this.businessService.findById(id);
   }
 
   @Get()
+  @Public()   // public listing — no auth required
   @ApiOperation({ summary: 'List businesses with filters' })
   findMany(
     @Query('category') category?: string,

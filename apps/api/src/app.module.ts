@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { AuthModule } from './common/auth/auth.module';
 import { BusinessModule } from './business/business.module';
 import { SearchModule } from './search/search.module';
 import { ClaimModule } from './claim/claim.module';
@@ -12,6 +13,7 @@ import { AuditModule } from './audit/audit.module';
 @Module({
   imports: [
     ThrottlerModule.forRoot([{ ttl: 60000, limit: 100 }]),
+    AuthModule,       // global — JWT guard applied to all routes by default
     HealthModule,
     AuditModule,
     BusinessModule,
