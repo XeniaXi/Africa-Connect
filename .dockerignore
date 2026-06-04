@@ -1,0 +1,15 @@
+# Never send these to the Docker build context
+node_modules
+**/node_modules
+**/.next
+**/dist
+**/.turbo
+**/*.tsbuildinfo
+.git
+.gitignore
+*.md
+.env
+.env.*
+!.env.example
+coverage
+**/coverage
