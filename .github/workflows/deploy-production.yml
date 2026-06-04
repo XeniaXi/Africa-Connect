@@ -1,0 +1,28 @@
+name: Deploy to Production
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  deploy:
+    name: Deploy Production
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run build
+      - name: Deploy to Coolify (Production)
+        run: |
+          curl -X POST "${{ secrets.COOLIFY_WEBHOOK_URL_PROD }}" \
+            -H "Authorization: Bearer ${{ secrets.COOLIFY_TOKEN_PROD }}" \
+            -H "Content-Type: application/json"

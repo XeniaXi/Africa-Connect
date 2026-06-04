@@ -1,0 +1,45 @@
+version: '3.9'
+
+# Production overrides — extend docker-compose.yml
+# Usage: docker compose -f docker/docker-compose.yml -f docker/docker-compose.prod.yml up -d
+
+services:
+  postgres:
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-connectafrica}
+      POSTGRES_USER: ${POSTGRES_USER:-connectafrica}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be set}
+    ports: []  # no host exposure in production — use internal network
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+
+  redis:
+    ports: []
+    restart: unless-stopped
+    command: redis-server --requirepass ${REDIS_PASSWORD:?REDIS_PASSWORD must be set} --appendonly yes
+    deploy:
+      resources:
+        limits:
+          memory: 256m
+
+  opensearch:
+    environment:
+      - discovery.type=single-node
+      - DISABLE_SECURITY_PLUGIN=false
+      - OPENSEARCH_JAVA_OPTS=-Xms1g -Xmx1g
+    ports: []
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 2g
+
+  minio:
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:?MINIO_ROOT_USER must be set}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:?MINIO_ROOT_PASSWORD must be set}
+    ports: []
+    restart: unless-stopped
