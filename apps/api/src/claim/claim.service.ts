@@ -218,8 +218,8 @@ export class ClaimService {
       throw new ConflictException(`Claim is already ${claim.claimStatus}`);
     }
 
-    const updates: Parameters<typeof prisma.businessClaim.update>[0]['data'] = {
-      claimStatus: decision,
+    const updates = {
+      claimStatus: decision as 'APPROVED' | 'REJECTED',
       reviewedBy: actor.sub,
       reviewedAt: new Date(),
       reviewNotes,

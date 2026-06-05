@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { prisma } from '@connectafrica/database';
-import { ActorType } from '@connectafrica/database';
+
+// Mirror of the ActorType enum from schema.prisma — avoids Prisma generated-type dependency at build time
+type ActorType = 'USER' | 'PARTNER' | 'ADMIN' | 'AGENT' | 'SYSTEM';
 
 export interface AuditLogInput {
   requestId?: string;
