@@ -18,6 +18,10 @@ module.exports = (options, webpack) => {
     externals: [
       // Keep @prisma/client as a runtime require — it has native .node binaries
       { '@prisma/client': 'commonjs @prisma/client' },
+      // NestJS PackageLoader uses dynamic require(variableName) which webpack
+      // can't statically analyze — externalize so Node resolves them at runtime
+      { 'class-validator': 'commonjs class-validator' },
+      { 'class-transformer': 'commonjs class-transformer' },
       // Keep all .node native addons external
       function ({ request }, callback) {
         if (/\.node$/.test(request)) {
