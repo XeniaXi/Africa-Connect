@@ -23,7 +23,7 @@ FROM deps AS builder
 COPY packages/ ./packages/
 COPY apps/api/ ./apps/api/
 # Generate Prisma client BEFORE compiling — types must exist for nest build
-RUN npx prisma generate --schema=packages/database/prisma/schema.prisma
+RUN ./node_modules/.bin/prisma generate --schema=packages/database/prisma/schema.prisma
 WORKDIR /repo/apps/api
 RUN pnpm run build
 
