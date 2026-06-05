@@ -41,9 +41,11 @@ ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN addgroup --system --gid 1001 nodejs && adduser --system --uid 1001 nextjs
 
-COPY --from=builder /repo/apps/admin/.next/standalone ./
-COPY --from=builder /repo/apps/admin/.next/static      ./.next/static
-COPY --from=builder /repo/apps/admin/public            ./public 2>/dev/null || true
+# In a pnpm monorepo, Next.js standalone mirrors the repo directory structure.
+# server.js lives at apps/admin/server.js inside the standalone output, not at
+# the root. Static files must also sit next to server.js at apps/admin/.next/static.
+COPY --from=builder /repo/apps/admin/.next/standalone       ./
+COPY --from=builder /repo/apps/admin/.next/static           ./apps/admin/.next/static
 
 USER nextjs
 EXPOSE 3001
@@ -53,4 +55,5 @@ ENV HOSTNAME="0.0.0.0"
 HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
   CMD wget -qO- http://127.0.0.1:3001/api/health || exit 1
 
+WORKDIR /app/apps/admin
 CMD ["node", "server.js"]
