@@ -25,11 +25,9 @@ RUN pnpm install --no-frozen-lockfile
 
 # ── build stage ───────────────────────────────────────────────────────────────
 # NEXT_PUBLIC_* vars are baked into the client JS bundle at build time.
-# Pass --build-arg NEXT_PUBLIC_API_URL=https://api.connectafrica.mpaukwu.tech/v1
-# in Coolify's build args (not just env vars).
+# Coolify injects these as ARG + --build-arg when its "auto build args" toggle
+# is enabled — do NOT declare them manually here or the build cache breaks.
 FROM deps AS builder
-ARG NEXT_PUBLIC_API_URL
-ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
 ENV NEXT_TELEMETRY_DISABLED=1
 COPY packages/ ./packages/
 COPY apps/web/  ./apps/web/
