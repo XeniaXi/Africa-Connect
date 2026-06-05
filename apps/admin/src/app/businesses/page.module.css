@@ -1,0 +1,131 @@
+.page {
+  max-width: 1200px;
+}
+
+.heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.subheading {
+  font-size: 0.875rem;
+  color: var(--gray-600);
+  margin-bottom: 2rem;
+}
+
+.tableWrapper {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+thead th {
+  background: var(--gray-50);
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--gray-600);
+  border-bottom: 1px solid var(--gray-200);
+  white-space: nowrap;
+}
+
+tbody td {
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid var(--gray-100);
+  color: var(--gray-900);
+  vertical-align: middle;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+tbody tr:hover td {
+  background: var(--gray-50);
+}
+
+.trustScore {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+
+.trustHigh {
+  color: var(--green-dark);
+}
+
+.trustMid {
+  color: var(--amber);
+}
+
+.trustLow {
+  color: var(--red);
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.badgeGreen {
+  background: var(--green-light);
+  color: var(--green-dark);
+}
+
+.badgeAmber {
+  background: var(--amber-light);
+  color: var(--amber);
+}
+
+.badgeGray {
+  background: var(--gray-100);
+  color: var(--gray-600);
+}
+
+.viewLink {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.75rem;
+  background: var(--gray-100);
+  color: var(--gray-900);
+  border-radius: 5px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+
+.viewLink:hover {
+  background: var(--gray-200);
+}
+
+.emptyState {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.emptyText {
+  font-size: 0.875rem;
+  color: var(--gray-600);
+}

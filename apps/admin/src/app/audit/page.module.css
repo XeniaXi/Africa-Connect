@@ -1,0 +1,103 @@
+.page {
+  max-width: 1100px;
+}
+
+.heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.notice {
+  background: var(--amber-light);
+  border: 1px solid var(--amber);
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  font-size: 0.8125rem;
+  color: var(--gray-900);
+  margin: 1.25rem 0 2rem;
+}
+
+.tableWrapper {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+thead th {
+  background: var(--gray-50);
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--gray-600);
+  border-bottom: 1px solid var(--gray-200);
+  white-space: nowrap;
+}
+
+tbody td {
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid var(--gray-100);
+  color: var(--gray-900);
+  vertical-align: middle;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.actorBadge {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.actorSystem {
+  background: var(--gray-100);
+  color: var(--gray-600);
+}
+
+.actorUser {
+  background: var(--green-light);
+  color: var(--green-dark);
+}
+
+.actorAgent {
+  background: var(--amber-light);
+  color: var(--amber);
+}
+
+.action {
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  font-size: 0.8rem;
+  color: var(--gray-900);
+}
+
+.resource {
+  font-size: 0.8125rem;
+  color: var(--gray-600);
+}
+
+.resourceId {
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  font-size: 0.75rem;
+  color: var(--gray-400);
+}
+
+.timestamp {
+  font-size: 0.8125rem;
+  color: var(--gray-600);
+  white-space: nowrap;
+}

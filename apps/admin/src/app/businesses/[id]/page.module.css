@@ -1,0 +1,128 @@
+.page {
+  max-width: 900px;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.875rem;
+  color: var(--gray-600);
+  margin-bottom: 1.5rem;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.backLink:hover {
+  color: var(--gray-900);
+}
+
+.heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.category {
+  font-size: 0.875rem;
+  color: var(--gray-600);
+  margin-bottom: 2rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+}
+
+.cardTitle {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--gray-600);
+  margin-bottom: 1rem;
+}
+
+.fieldRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--gray-100);
+  gap: 1rem;
+  font-size: 0.875rem;
+}
+
+.fieldRow:last-child {
+  border-bottom: none;
+}
+
+.fieldLabel {
+  color: var(--gray-600);
+  flex-shrink: 0;
+}
+
+.fieldValue {
+  color: var(--gray-900);
+  font-weight: 500;
+  text-align: right;
+  word-break: break-word;
+}
+
+.trustScore {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.trustHigh { color: var(--green-dark); }
+.trustMid  { color: var(--amber); }
+.trustLow  { color: var(--red); }
+
+.trustLabel {
+  font-size: 0.8125rem;
+  color: var(--gray-600);
+  margin-top: 0.25rem;
+}
+
+.editBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.5rem;
+  background: var(--gray-100);
+  color: var(--gray-900);
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 1px solid var(--gray-200);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.editBtn:hover {
+  background: var(--gray-200);
+}
+
+.notFound {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  padding: 3rem 2rem;
+  text-align: center;
+  color: var(--gray-600);
+}

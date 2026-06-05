@@ -1,0 +1,59 @@
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.approveBtn {
+  padding: 0.35rem 0.75rem;
+  background: var(--green);
+  color: white;
+  border-radius: 5px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: background 0.15s, opacity 0.15s;
+}
+
+.approveBtn:hover:not(:disabled) {
+  background: var(--green-dark);
+}
+
+.rejectBtn {
+  padding: 0.35rem 0.75rem;
+  background: var(--white);
+  color: var(--red);
+  border: 1px solid var(--red);
+  border-radius: 5px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+}
+
+.rejectBtn:hover:not(:disabled) {
+  background: var(--red-light);
+}
+
+.approveBtn:disabled,
+.rejectBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.result {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  padding: 0.3rem 0.75rem;
+  border-radius: 5px;
+}
+
+.resultOk {
+  color: var(--green-dark);
+  background: var(--green-light);
+}
+
+.resultErr {
+  color: var(--red);
+  background: var(--red-light);
+}
