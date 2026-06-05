@@ -1,0 +1,37 @@
+.pageWrapper {
+  background: var(--gray-50);
+  min-height: 60vh;
+  padding: 3rem 0 5rem;
+}
+
+.claimHeader {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.eyebrow {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 0.75rem;
+}
+
+.title {
+  font-size: 1.875rem;
+  font-weight: 800;
+  color: var(--gray-900);
+  letter-spacing: -0.03em;
+  margin-bottom: 0.625rem;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--gray-600);
+}
+
+.subtitle strong {
+  color: var(--gray-900);
+  font-weight: 700;
+}
