@@ -121,6 +121,9 @@ importers:
       '@types/passport-jwt':
         specifier: ^4.0.0
         version: 4.0.1
+      ts-loader:
+        specifier: ^9.6.0
+        version: 9.6.0(typescript@5.9.3)(webpack@5.97.1)
       typescript:
         specifier: ^5.4.0
         version: 5.9.3
@@ -3043,6 +3046,17 @@ packages:
       esbuild:
         optional: true
       jest-util:
+        optional: true
+
+  ts-loader@9.6.0:
+    resolution: {integrity: sha512-dsJO0S+T7grTDWTc4a0nTygXGjKncVUpx8Y+af8EvI/D5WgTJby5UEk5eoMCB9EcLQmnvitqh99MqtjtHgAwFQ==}
+    engines: {node: '>=12.0.0'}
+    peerDependencies:
+      loader-utils: '*'
+      typescript: '*'
+      webpack: ^4.0.0 || ^5.0.0
+    peerDependenciesMeta:
+      loader-utils:
         optional: true
 
   ts-node@10.9.2:
@@ -6488,6 +6502,16 @@ snapshots:
       '@jest/types': 29.6.3
       babel-jest: 29.7.0(@babel/core@7.29.7)
       jest-util: 29.7.0
+
+  ts-loader@9.6.0(typescript@5.9.3)(webpack@5.97.1):
+    dependencies:
+      chalk: 4.1.2
+      enhanced-resolve: 5.22.2
+      micromatch: 4.0.8
+      semver: 7.8.2
+      source-map: 0.7.4
+      typescript: 5.9.3
+      webpack: 5.97.1
 
   ts-node@10.9.2(@types/node@20.19.41)(typescript@5.9.3):
     dependencies:

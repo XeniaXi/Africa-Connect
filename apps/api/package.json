@@ -11,31 +11,32 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@connectafrica/config": "workspace:*",
+    "@connectafrica/database": "workspace:*",
+    "@connectafrica/ingest": "workspace:*",
+    "@connectafrica/trust": "workspace:*",
+    "@connectafrica/types": "workspace:*",
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
-    "@nestjs/platform-fastify": "^10.0.0",
-    "@nestjs/swagger": "^7.0.0",
-    "@nestjs/throttler": "^5.0.0",
-    "@connectafrica/database": "workspace:*",
-    "@connectafrica/types": "workspace:*",
-    "@connectafrica/trust": "workspace:*",
-    "@connectafrica/config": "workspace:*",
-    "@connectafrica/ingest": "workspace:*",
-    "zod": "^3.23.0",
-    "ngeohash": "^0.6.3",
     "@nestjs/jwt": "^10.0.0",
     "@nestjs/passport": "^10.0.0",
+    "@nestjs/platform-fastify": "^10.0.0",
+    "@nestjs/schedule": "^4.0.0",
+    "@nestjs/swagger": "^7.0.0",
+    "@nestjs/throttler": "^5.0.0",
+    "ngeohash": "^0.6.3",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
-    "@nestjs/schedule": "^4.0.0",
     "redis": "^4.7.0",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.0"
+    "rxjs": "^7.8.0",
+    "zod": "^3.23.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",
     "@nestjs/testing": "^10.0.0",
     "@types/passport-jwt": "^4.0.0",
+    "ts-loader": "^9.6.0",
     "typescript": "^5.4.0"
   }
 }
