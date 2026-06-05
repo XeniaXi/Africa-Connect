@@ -21,13 +21,13 @@
   overflow: auto;
 }
 
-table {
+.tableWrapper table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.875rem;
 }
 
-thead th {
+.tableWrapper thead th {
   background: var(--gray-50);
   padding: 0.75rem 1rem;
   text-align: left;
@@ -40,18 +40,18 @@ thead th {
   white-space: nowrap;
 }
 
-tbody td {
+.tableWrapper tbody td {
   padding: 0.875rem 1rem;
   border-bottom: 1px solid var(--gray-100);
   color: var(--gray-900);
   vertical-align: middle;
 }
 
-tbody tr:last-child td {
+.tableWrapper tbody tr:last-child td {
   border-bottom: none;
 }
 
-tbody tr:hover td {
+.tableWrapper tbody tr:hover td {
   background: var(--gray-50);
 }
 
