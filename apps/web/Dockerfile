@@ -7,22 +7,38 @@ RUN corepack enable && corepack prepare pnpm@9 --activate
 WORKDIR /repo
 
 # ── deps stage ────────────────────────────────────────────────────────────────
+# .npmrc must be copied here so shamefully-hoist=true applies before pnpm install.
+# All workspace member package.json files must be present for pnpm to resolve
+# the workspace graph correctly.
 FROM base AS deps
-COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
+COPY package.json pnpm-workspace.yaml pnpm-lock.yaml .npmrc ./
+COPY packages/database/package.json ./packages/database/
+COPY packages/trust/package.json     ./packages/trust/
 COPY packages/types/package.json     ./packages/types/
 COPY packages/config/package.json    ./packages/config/
+COPY packages/ingest/package.json    ./packages/ingest/
+COPY apps/api/package.json           ./apps/api/
 COPY apps/web/package.json           ./apps/web/
-RUN pnpm install --frozen-lockfile --filter @connectafrica/web...
+COPY apps/admin/package.json         ./apps/admin/
+COPY apps/mcp/package.json           ./apps/mcp/
+RUN pnpm install --no-frozen-lockfile
 
 # ── build stage ───────────────────────────────────────────────────────────────
+# NEXT_PUBLIC_* vars are baked into the client JS bundle at build time.
+# Pass --build-arg NEXT_PUBLIC_API_URL=https://api.connectafrica.mpaukwu.tech/v1
+# in Coolify's build args (not just env vars).
 FROM deps AS builder
+ARG NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+ENV NEXT_TELEMETRY_DISABLED=1
 COPY packages/ ./packages/
 COPY apps/web/  ./apps/web/
 WORKDIR /repo/apps/web
-ENV NEXT_TELEMETRY_DISABLED=1
 RUN pnpm run build
 
 # ── runtime stage ─────────────────────────────────────────────────────────────
+# Next.js standalone output is self-contained — it traces and bundles all
+# required node_modules (including workspace packages) into .next/standalone/.
 FROM node:20-alpine AS runner
 WORKDIR /app
 
@@ -41,6 +57,6 @@ ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
-  CMD wget -qO- http://localhost:3000/api/health || exit 1
+  CMD wget -qO- http://127.0.0.1:3000/api/health || exit 1
 
 CMD ["node", "server.js"]
