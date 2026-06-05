@@ -165,6 +165,24 @@ async function main() {
   }
   console.log(`  ✓ ${CATEGORIES.length} categories`);
 
+  // Ingest partner sources
+  const ingestSources = [
+    { slug: 'google-places', name: 'Google Places', sourceType: 'api', trustWeight: 0.85 },
+    { slug: 'osm', name: 'OpenStreetMap', sourceType: 'api', trustWeight: 0.60 },
+    { slug: 'who-hdx', name: 'WHO Health Facilities (HDX)', sourceType: 'bulk_import', trustWeight: 0.80 },
+    { slug: 'cac-nigeria', name: 'CAC Nigeria (via Mono)', sourceType: 'api', trustWeight: 0.90 },
+    { slug: 'cipc-southafrica', name: 'CIPC South Africa', sourceType: 'api', trustWeight: 0.90 },
+    { slug: 'opencorporates', name: 'OpenCorporates', sourceType: 'api', trustWeight: 0.75 },
+  ];
+  for (const s of ingestSources) {
+    await prisma.partnerSource.upsert({
+      where: { slug: s.slug },
+      update: {},
+      create: { ...s, status: 'active' },
+    });
+  }
+  console.log(`  ✓ ${ingestSources.length} ingest partner sources`);
+
   // Partner sources
   const sortam = await prisma.partnerSource.upsert({
     where: { slug: 'sortam' },

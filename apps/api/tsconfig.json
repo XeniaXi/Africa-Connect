@@ -15,7 +15,8 @@
       "@connectafrica/database": ["../../packages/database/src/index.ts"],
       "@connectafrica/types": ["../../packages/types/src/index.ts"],
       "@connectafrica/trust": ["../../packages/trust/src/index.ts"],
-      "@connectafrica/config": ["../../packages/config/src/index.ts"]
+      "@connectafrica/config": ["../../packages/config/src/index.ts"],
+      "@connectafrica/ingest": ["../../packages/ingest/src/index.ts"]
     },
     "incremental": true,
     "skipLibCheck": true,

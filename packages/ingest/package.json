@@ -1,0 +1,12 @@
+{
+  "name": "@connectafrica/ingest",
+  "version": "0.1.0",
+  "main": "src/index.ts",
+  "scripts": { "typecheck": "tsc --noEmit" },
+  "dependencies": {
+    "@connectafrica/types": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0"
+  }
+}

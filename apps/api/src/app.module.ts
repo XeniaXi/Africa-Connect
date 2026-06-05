@@ -12,6 +12,7 @@ import { VerificationModule } from './verification/verification.module';
 import { LeadModule } from './lead/lead.module';
 import { HealthModule } from './health/health.module';
 import { AuditModule } from './audit/audit.module';
+import { IngestModule } from './ingest/ingest.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { AuditModule } from './audit/audit.module';
     PartnerModule,
     VerificationModule,
     LeadModule,
+    IngestModule,
   ],
   providers: [
     // Global exception filter — consistent error shape across all endpoints
