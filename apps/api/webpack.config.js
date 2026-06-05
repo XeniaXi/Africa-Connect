@@ -6,6 +6,14 @@ module.exports = (options, webpack) => {
     '@nestjs/microservices/microservices-module',
     '@nestjs/websockets/socket-module',
     'class-transformer/storage',
+    // Optional NestJS peer deps not installed in this project
+    '@nestjs/platform-express',
+    '@fastify/static',
+    '@fastify/view',
+    'fastify-plugin',
+    'cache-manager',
+    'class-validator',
+    'class-transformer',
   ];
 
   return {
