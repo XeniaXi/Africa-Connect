@@ -99,7 +99,7 @@ export class SeedBootstrapService implements OnApplicationBootstrap {
       const result = await prisma.category.upsert({
         where: { slug: cat.slug },
         create: cat,
-        update: { name: cat.name, description: cat.description },
+        update: { name: cat.name },
       });
       if (result) created++;
     }
