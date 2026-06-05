@@ -47,7 +47,6 @@ RUN addgroup --system --gid 1001 nodejs && adduser --system --uid 1001 nextjs
 
 COPY --from=builder /repo/apps/web/.next/standalone ./
 COPY --from=builder /repo/apps/web/.next/static      ./.next/static
-COPY --from=builder /repo/apps/web/public            ./public 2>/dev/null || true
 
 USER nextjs
 EXPOSE 3000
