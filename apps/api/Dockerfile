@@ -21,7 +21,7 @@ COPY apps/api/package.json           ./apps/api/
 COPY apps/web/package.json           ./apps/web/
 COPY apps/admin/package.json         ./apps/admin/
 COPY apps/mcp/package.json           ./apps/mcp/
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --no-frozen-lockfile
 
 # ── build stage ───────────────────────────────────────────────────────────────
 FROM deps AS builder
