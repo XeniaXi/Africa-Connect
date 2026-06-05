@@ -7,19 +7,29 @@ RUN corepack enable && corepack prepare pnpm@9 --activate
 WORKDIR /repo
 
 # ── deps stage ────────────────────────────────────────────────────────────────
+# .npmrc must be copied here so shamefully-hoist=true applies before pnpm install.
 FROM base AS deps
-COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
+COPY package.json pnpm-workspace.yaml pnpm-lock.yaml .npmrc ./
+COPY packages/database/package.json ./packages/database/
+COPY packages/trust/package.json     ./packages/trust/
 COPY packages/types/package.json     ./packages/types/
 COPY packages/config/package.json    ./packages/config/
+COPY packages/ingest/package.json    ./packages/ingest/
+COPY apps/api/package.json           ./apps/api/
+COPY apps/web/package.json           ./apps/web/
 COPY apps/admin/package.json         ./apps/admin/
-RUN pnpm install --frozen-lockfile --filter @connectafrica/admin...
+COPY apps/mcp/package.json           ./apps/mcp/
+RUN pnpm install --no-frozen-lockfile
 
 # ── build stage ───────────────────────────────────────────────────────────────
+# NEXT_PUBLIC_* vars are baked into the client JS bundle at build time.
+# Coolify injects these as ARG + --build-arg when its "auto build args" toggle
+# is enabled — do NOT declare them manually here or the build cache breaks.
 FROM deps AS builder
+ENV NEXT_TELEMETRY_DISABLED=1
 COPY packages/ ./packages/
 COPY apps/admin/ ./apps/admin/
 WORKDIR /repo/apps/admin
-ENV NEXT_TELEMETRY_DISABLED=1
 RUN pnpm run build
 
 # ── runtime stage ─────────────────────────────────────────────────────────────
@@ -41,6 +51,6 @@ ENV PORT=3001
 ENV HOSTNAME="0.0.0.0"
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
-  CMD wget -qO- http://localhost:3001/api/health || exit 1
+  CMD wget -qO- http://127.0.0.1:3001/api/health || exit 1
 
 CMD ["node", "server.js"]
