@@ -7,20 +7,15 @@ RUN apk add --no-cache openssl
 RUN corepack enable && corepack prepare pnpm@9 --activate
 WORKDIR /repo
 
-# ── deps stage: install all deps needed for the api ──────────────────────────
+# ── deps stage: install ALL workspace deps (no filter — prisma CLI must be available) ──
 FROM base AS deps
 COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
-COPY packages/database/package.json ./packages/database/
-COPY packages/trust/package.json     ./packages/trust/
-COPY packages/types/package.json     ./packages/types/
-COPY packages/config/package.json    ./packages/config/
-COPY packages/ingest/package.json    ./packages/ingest/
-COPY apps/api/package.json           ./apps/api/
-RUN pnpm install --frozen-lockfile --filter @connectafrica/api...
+COPY packages/ ./packages/
+COPY apps/api/package.json ./apps/api/
+RUN pnpm install --frozen-lockfile
 
 # ── build stage ───────────────────────────────────────────────────────────────
 FROM deps AS builder
-COPY packages/ ./packages/
 COPY apps/api/ ./apps/api/
 # Generate Prisma client BEFORE compiling — types must exist for nest build
 RUN ./node_modules/.bin/prisma generate --schema=packages/database/prisma/schema.prisma
@@ -34,11 +29,10 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 
-COPY --from=builder /repo/node_modules                      ./node_modules
-COPY --from=builder /repo/packages                          ./packages
-COPY --from=builder /repo/apps/api/dist                     ./dist
-COPY --from=builder /repo/apps/api/package.json             ./package.json
-COPY --from=builder /repo/packages/database/prisma          ./packages/database/prisma
+COPY --from=builder /repo/node_modules                 ./node_modules
+COPY --from=builder /repo/packages                     ./packages
+COPY --from=builder /repo/apps/api/dist                ./dist
+COPY --from=builder /repo/apps/api/package.json        ./package.json
 
 EXPOSE 4000
 
