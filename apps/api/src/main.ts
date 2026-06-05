@@ -31,14 +31,16 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
   app.setGlobalPrefix('v1');
 
-  const config = new DocumentBuilder()
-    .setTitle('ConnectAfrica API')
-    .setDescription('AI discovery, trust and transaction layer for African businesses')
-    .setVersion('1.0')
-    .addBearerAuth()
-    .build();
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('docs', app, document);
+  if (process.env.NODE_ENV !== 'production') {
+    const config = new DocumentBuilder()
+      .setTitle('ConnectAfrica API')
+      .setDescription('AI discovery, trust and transaction layer for African businesses')
+      .setVersion('1.0')
+      .addBearerAuth()
+      .build();
+    const document = SwaggerModule.createDocument(app, config);
+    SwaggerModule.setup('docs', app, document);
+  }
 
   const port = process.env.API_PORT ?? 4000;
   await app.listen(port, '0.0.0.0');
