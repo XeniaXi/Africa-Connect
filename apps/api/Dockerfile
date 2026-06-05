@@ -11,7 +11,7 @@ WORKDIR /repo
 # pnpm workspace requires ALL member package.json files to be present
 # or it falls back to root-only install and never hoists workspace deps like prisma
 FROM base AS deps
-COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
+COPY package.json pnpm-workspace.yaml pnpm-lock.yaml .npmrc ./
 COPY packages/database/package.json ./packages/database/
 COPY packages/trust/package.json     ./packages/trust/
 COPY packages/types/package.json     ./packages/types/
