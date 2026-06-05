@@ -96,10 +96,14 @@ export class SeedBootstrapService implements OnApplicationBootstrap {
 
     let created = 0;
     for (const cat of categories) {
+      // Strip the description field — it lives in the seed data for
+      // documentation, but the Category Prisma model has no such column.
+      const { description: _description, ...catData } = cat;
+      void _description;
       const result = await prisma.category.upsert({
-        where: { slug: cat.slug },
-        create: cat,
-        update: { name: cat.name },
+        where: { slug: catData.slug },
+        create: catData,
+        update: { name: catData.name },
       });
       if (result) created++;
     }
