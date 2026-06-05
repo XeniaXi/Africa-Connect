@@ -1,7 +1,11 @@
 import { IngestCity, RawBusinessRecord } from './types';
 import { mapOsmTags } from './category-mapper';
 
-const OVERPASS_URL = 'https://overpass-api.de/api/interpreter';
+const OVERPASS_ENDPOINTS = [
+  'https://overpass-api.de/api/interpreter',
+  'https://overpass.kumi.systems/api/interpreter',
+  'https://maps.mail.ru/osm/tools/overpass/api/interpreter',
+];
 
 const DEFAULT_AMENITY_TYPES = [
   'hospital',
@@ -44,16 +48,31 @@ out center tags;
     `.trim();
 
     // Respect Overpass rate limits — caller should add delay between cities
-    const response = await fetch(OVERPASS_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: `data=${encodeURIComponent(query)}`,
-    });
+    // Try each endpoint in order; move to next on 429/406/5xx
+    let response: Response | null = null;
+    let lastError = '';
+    for (const endpoint of OVERPASS_ENDPOINTS) {
+      try {
+        response = await fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'User-Agent': 'ConnectAfrica/1.0 (https://connectafrica.ai; contact@connectafrica.ai)',
+          },
+          body: `data=${encodeURIComponent(query)}`,
+        });
+        if (response.ok) break;
+        lastError = `${response.status} ${response.statusText}`;
+        // Short back-off before trying next mirror
+        await sleep(1500);
+      } catch (err) {
+        lastError = (err as Error).message;
+        await sleep(1500);
+      }
+    }
 
-    if (!response.ok) {
-      throw new Error(
-        `Overpass API failed: ${response.status} ${response.statusText}`,
-      );
+    if (!response || !response.ok) {
+      throw new Error(`Overpass API failed: ${lastError}`);
     }
 
     const data = (await response.json()) as {
