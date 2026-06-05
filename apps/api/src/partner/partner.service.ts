@@ -8,6 +8,7 @@ import { prisma } from '@connectafrica/database';
 import { PartnerUpsertPayload } from '@connectafrica/types';
 import { computeTrustScore } from '@connectafrica/trust';
 import { AuditService } from '../audit/audit.service';
+import * as ngeohash from 'ngeohash';
 
 export interface PartnerContext {
   id: string;
@@ -97,7 +98,11 @@ export class PartnerService {
             state: payload.state,
             country: payload.country ?? 'Nigeria',
             ...(payload.latitude && payload.longitude
-              ? { latitude: payload.latitude, longitude: payload.longitude }
+              ? {
+                  latitude: payload.latitude,
+                  longitude: payload.longitude,
+                  geohash: ngeohash.encode(payload.latitude, payload.longitude, 8),
+                }
               : {}),
             isPrimary: true,
           }],

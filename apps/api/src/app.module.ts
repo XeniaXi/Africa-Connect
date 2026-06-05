@@ -4,6 +4,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
 import { AuthModule } from './common/auth/auth.module';
 import { GlobalExceptionFilter } from './common/filters/http-exception.filter';
 import { RequestIdMiddleware } from './common/middleware/request-id.middleware';
+import { SeedBootstrapService } from './common/seed/seed-bootstrap.service';
 import { BusinessModule } from './business/business.module';
 import { SearchModule } from './search/search.module';
 import { ClaimModule } from './claim/claim.module';
@@ -33,6 +34,8 @@ import { AdminModule } from './admin/admin.module';
   providers: [
     // Global exception filter — consistent error shape across all endpoints
     { provide: APP_FILTER, useClass: GlobalExceptionFilter },
+    // Seeds categories + ingest sources on every boot (idempotent upserts)
+    SeedBootstrapService,
   ],
 })
 export class AppModule implements NestModule {
