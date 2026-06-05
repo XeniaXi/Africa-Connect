@@ -3,17 +3,14 @@
 
 module.exports = (options, webpack) => {
   const lazyImports = [
+    // NestJS lazy-loaded internal modules (not used in this project)
     '@nestjs/microservices/microservices-module',
     '@nestjs/websockets/socket-module',
     'class-transformer/storage',
-    // Optional NestJS peer deps not installed in this project
+    // Optional peer deps that are NOT installed (using Fastify, not Express)
     '@nestjs/platform-express',
     '@fastify/static',
     '@fastify/view',
-    'fastify-plugin',
-    'cache-manager',
-    'class-validator',
-    'class-transformer',
   ];
 
   return {
